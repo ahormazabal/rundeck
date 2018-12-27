@@ -1012,7 +1012,7 @@ class FakeScheduler implements Scheduler{
         return null
     }
 
-    @Override
+//    @Override
     void resetTriggerFromErrorState(TriggerKey triggerKey) throws SchedulerException {
 
     }
