@@ -42,6 +42,7 @@ include	'rundeck-storage',
     'rundeckapp:repository',
     'docker',
     // Rundeckpro plugins
+//    'rundeckapp:rundeckpro-security',
     'rundeckapp:rundeckpro-cluster'
 
 
