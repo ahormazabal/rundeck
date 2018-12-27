@@ -173,7 +173,7 @@ grails{
         compile project(':grails-securityheaders')
         compile project(':rundeck:repository')
         compile project('rundeckpro-cluster')
-//        compile project('rundeckpro-security')
+        compile project('rundeckpro-security')
     }
 }
 
