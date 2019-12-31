@@ -27,6 +27,7 @@ import com.dtolabs.rundeck.core.schedule.JobScheduleManager
 import com.dtolabs.rundeck.plugins.jobs.ExecutionLifecyclePlugin
 import org.apache.log4j.Logger
 import rundeck.ScheduledExecutionStats
+import rundeck.Tag
 
 import static org.junit.Assert.*
 
@@ -68,7 +69,7 @@ import spock.lang.Unroll
  */
 @TestFor(ScheduledExecutionService)
 @Mock([Workflow, ScheduledExecution, CommandExec, Notification, Option, PluginStep, JobExec,
-        WorkflowStep, Execution, ReferencedExecution, ScheduledExecutionStats])
+        WorkflowStep, Execution, ReferencedExecution, ScheduledExecutionStats, Tag])
 class ScheduledExecutionServiceSpec extends Specification {
 
     public static final String TEST_UUID1 = 'BB27B7BB-4F13-44B7-B64B-D2435E2DD8C7'

@@ -32,11 +32,18 @@ import org.quartz.TriggerUtils
 import org.quartz.impl.calendar.BaseCalendar
 import org.rundeck.util.Sizes
 
+import java.util.stream.Collectors
+
 class ScheduledExecution extends ExecutionContext implements EmbeddedJsonData {
     static final String RUNBOOK_MARKER='---'
     Long id
     SortedSet<Option> options
-    static hasMany = [executions:Execution,options:Option,notifications:Notification]
+    Set<Tag> tags
+    static hasMany = [
+            executions   : Execution,
+            options      : Option,
+            notifications: Notification,
+            tags         : Tag]
 
     String groupPath
     String userRoleList
@@ -109,6 +116,7 @@ class ScheduledExecution extends ExecutionContext implements EmbeddedJsonData {
         project(nullable:false, blank: false, matches: FrameworkResource.VALID_RESOURCE_NAME_REGEX)
         workflow(nullable:true)
         options(nullable:true)
+        tags(nullable: true)
         jobName(blank: false, nullable: false, matches: "[^/]+", maxSize: 1024)
         groupPath(nullable:true, maxSize: 2048)
         nextExecution(nullable:true)
@@ -331,6 +339,12 @@ class ScheduledExecution extends ExecutionContext implements EmbeddedJsonData {
             }
         }
 
+        if (tags) {
+            map.tags = tags.stream()
+                    .map { it.name }
+                    .toArray()
+        }
+
         map.sequence=workflow.toMap()
 
         if(scheduled){
@@ -416,12 +430,12 @@ class ScheduledExecution extends ExecutionContext implements EmbeddedJsonData {
         if(data.orchestrator){
             se.orchestrator=Orchestrator.fromMap(data.orchestrator);
         }
-        
+
         se.scheduleEnabled = data['scheduleEnabled'] == null || data['scheduleEnabled']
         se.executionEnabled = data['executionEnabled'] == null || data['executionEnabled']
         se.nodeFilterEditable = data['nodeFilterEditable'] == null || data['nodeFilterEditable']
         se.excludeFilterUncheck = data.excludeFilterUncheck?data.excludeFilterUncheck:false
-        
+
         se.loglevel=data.loglevel?data.loglevel:'INFO'
 
         if(data.loglimit){
@@ -460,6 +474,13 @@ class ScheduledExecution extends ExecutionContext implements EmbeddedJsonData {
             }
             se.options=options
         }
+
+        if (data.tags && data.tags instanceof Collection) {
+            data.tags.each {
+                se.addToTags(Tag.getTag(it))
+            }
+        }
+
         if(data.sequence){
             Workflow wf = Workflow.fromMap(data.sequence as Map)
             se.workflow=wf
@@ -1199,6 +1220,15 @@ class ScheduledExecution extends ExecutionContext implements EmbeddedJsonData {
      */
     SortedSet<JobOption> jobOptionsSet() {
         new TreeSet<>(options.collect{it.toJobOption()})
+    }
+
+    /**
+     * Get the names of all tags in a list.
+     * @return
+     */
+    Set<String> getTagNames() {
+        return !tags ? null :
+                tags.stream().map { it.name }.collect(Collectors.toSet())
     }
 }
 

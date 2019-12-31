@@ -20,7 +20,7 @@ import grails.validation.Validateable
 
 /*
  * ScheduledExecutionQuery.java
- * 
+ *
  * User: Greg Schueler <a href="mailto:greg@dtosolutions.com">greg@dtosolutions.com</a>
  * Created: Feb 12, 2010 1:02:43 PM
  * $Id$
@@ -33,6 +33,7 @@ public class ScheduledExecutionQuery extends BaseQuery implements Validateable{
     String groupPath
     String groupPathExact
 
+    String tagFilter
     String descFilter
     String loglevelFilter
     String idlist
@@ -96,6 +97,7 @@ public class ScheduledExecutionQuery extends BaseQuery implements Validateable{
         descFilter(nullable: true)
         loglevelFilter(nullable: true)
         idlist(nullable: true)
+        tagFilter(nullable: true)
         scheduledFilter(nullable: true)
         scheduleEnabledFilter(nullable: true)
         executionEnabledFilter(nullable: true)
@@ -127,6 +129,10 @@ public class ScheduledExecutionQuery extends BaseQuery implements Validateable{
             sb.append('groupPathExact: ')
             sb.append("'${this['groupPathExact']}',")
         }
+        if(this['tagFilter']) {
+            sb.append('tagFilter:[')
+            sb.append("'${this['tagFilter']}'],")
+        }
         sb.append("]")
         return sb.toString()
     }
@@ -134,7 +140,7 @@ public class ScheduledExecutionQuery extends BaseQuery implements Validateable{
      * validate filter
      */
     public void configureFilter(){
-       
+
     }
 
     public Map asExecQueryParams() {

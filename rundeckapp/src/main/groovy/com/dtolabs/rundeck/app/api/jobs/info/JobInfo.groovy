@@ -23,6 +23,7 @@ import com.dtolabs.rundeck.app.api.marshall.ApiResource
 import com.dtolabs.rundeck.app.api.marshall.XmlAttribute
 import grails.validation.Validateable
 import rundeck.ScheduledExecution
+import rundeck.Tag
 
 /**
  * Resource view used by /project/jobs listing, and /job/[id]/info, and /scheduler
@@ -83,6 +84,11 @@ class JobInfo {
     @Ignore(onlyIfNull = true)
     List<Date> futureScheduledExecutions
 
+    @ApiVersion(34)
+    @Ignore(onlyIfNull = true)
+    @XmlAttribute
+    String tags
+
 //    Map blah=[
 //            z:'x'
 //    ]
@@ -104,7 +110,8 @@ class JobInfo {
                      permalink      : permalink,
                      scheduled      : se.scheduled,
                      scheduleEnabled: se.scheduleEnabled,
-                     enabled        : se.executionEnabled
+                     enabled        : se.executionEnabled,
+                     tags           : Tag.asString(se.tags)
                     ] + extra?.subMap('serverNodeUUID', 'serverOwner', 'averageDuration', 'nextScheduledExecution',
                         'futureScheduledExecutions')
         )

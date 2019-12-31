@@ -82,6 +82,7 @@ import javax.servlet.http.HttpSession
 import java.text.MessageFormat
 import java.text.SimpleDateFormat
 import java.util.concurrent.TimeUnit
+import java.util.stream.Collectors
 
 /**
  *  ScheduledExecutionService manages scheduling jobs with the Quartz scheduler
@@ -282,6 +283,15 @@ class ScheduledExecutionService implements ApplicationContextAware, Initializing
             }
 
         }
+
+        def tagFilterList = []
+        if (query.tagFilter) {
+            tagFilterList = query.tagFilter.split(",").toList().stream()
+                    .map { it.trim().toLowerCase() }
+                    .filter { !it.isEmpty() }
+                    .collect(Collectors.toSet())
+        }
+
         if(!query.groupPath && !query.groupPathExact){
             query.groupPath='*'
         }else if('-'==query.groupPath){
@@ -307,6 +317,16 @@ class ScheduledExecutionService implements ApplicationContextAware, Initializing
                             eq("id",theid)
                         }else{
                             eq("uuid", theid)
+                        }
+                    }
+                }
+            }
+
+            if(tagFilterList){
+                tags {
+                    or {
+                        tagFilterList.each { tagname ->
+                            eq("name", tagname)
                         }
                     }
                 }
@@ -382,6 +402,16 @@ class ScheduledExecutionService implements ApplicationContextAware, Initializing
                                 eq("id", theid)
                             } else {
                                 eq("uuid", theid)
+                            }
+                        }
+                    }
+                }
+
+                if(tagFilterList){
+                    tags {
+                        or {
+                            tagFilterList.each { tagname ->
+                                eq("name", tagname)
                             }
                         }
                     }
@@ -2569,6 +2599,11 @@ class ScheduledExecutionService implements ApplicationContextAware, Initializing
 
         }
 
+        // parse job tags
+        if(params.jobTags) {
+            scheduledExecution.tags = Tag.asSet(params.jobTags)
+        }
+
         parseOrchestratorFromParams(params)
         if(params.orchestrator){
             def result = _updateOrchestratorData(params, scheduledExecution)
@@ -3904,6 +3939,11 @@ class ScheduledExecutionService implements ApplicationContextAware, Initializing
                     i++
                 }
             }
+        }
+
+        // read tags from params.
+        if(params.jobTags) {
+            scheduledExecution.tags = Tag.asSet(params.jobTags)
         }
 
         parseOrchestratorFromParams(params)

@@ -14,7 +14,7 @@
   - limitations under the License.
   --}%
 
-<%@ page import="com.dtolabs.rundeck.plugins.ServiceNameConstants; rundeck.ScheduledExecution; rundeck.User; org.rundeck.core.auth.AuthConstants" %>
+<%@ page import="rundeck.Tag; com.dtolabs.rundeck.plugins.ServiceNameConstants; rundeck.ScheduledExecution; rundeck.User; org.rundeck.core.auth.AuthConstants" %>
 
 <g:jsonToken id="job_edit_tokens" url="${request.forwardURI}"/>
 
@@ -117,6 +117,21 @@
                 </div>
           </g:render>
       </div>
+
+      %{--Job Tags--}%
+      <div class="form-group">
+          <div class="${labelColSize} control-label text-form-label">
+              <g:message code="scheduledExecution.property.tags.label"/>
+          </div>
+
+          <div class="${fieldColHalfSize}">
+
+              <input type='text' name="jobTags" value="${enc(attr: Tag.asString(scheduledExecution?.tags))}"
+                     id="jobTags" class="form-control"/>
+
+          </div>
+      </div>
+
 
           %{--description--}%
       <div class="form-group ${hasErrors(bean: scheduledExecution, field: 'description', 'has-error')}">

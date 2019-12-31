@@ -43,13 +43,13 @@ import rundeck.controllers.ScheduledExecutionController
 
 /*
  * ScheduledExecutionServiceTests.java
- * 
+ *
  * User: Greg Schueler <a href="mailto:greg@dtosolutions.com">greg@dtosolutions.com</a>
  * Created: 6/22/11 5:55 PM
- * 
+ *
  */
 @TestFor(ScheduledExecutionService)
-@Mock([Execution, FrameworkService, WorkflowStep, CommandExec, JobExec, PluginStep, Workflow, ScheduledExecution, Option, Notification])
+@Mock([Execution, FrameworkService, WorkflowStep, CommandExec, JobExec, PluginStep, Workflow, ScheduledExecution, Option, Notification, Tag])
 @TestMixin(ControllerUnitTestMixin)
     class ScheduledExServiceTests {
 
