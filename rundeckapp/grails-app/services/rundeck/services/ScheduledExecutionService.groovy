@@ -246,6 +246,11 @@ class ScheduledExecutionService implements ApplicationContextAware, Initializing
             params.groupPath=null
         }
 
+        if(query.tagFilter && !query.tagFilter.trim().isEmpty()){
+            paginateParams['tagFilter']=query.tagFilter
+        }else{
+            params.tagFilter=null
+        }
 
         def tmod=[max: query?.max?query.max:getConfiguredMaxPerPage(10),
             offset:query?.offset?query.offset:0,

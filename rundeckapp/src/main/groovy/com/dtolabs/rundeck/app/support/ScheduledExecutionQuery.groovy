@@ -79,6 +79,7 @@ public class ScheduledExecutionQuery extends BaseQuery implements Validateable{
             ALL_FILTERS.putAll(BOOL_FILTERS)
             X_FILTERS.putAll(ALL_FILTERS)
             X_FILTERS.put('group','groupPath')
+            X_FILTERS.put('tag','tagFilter')
     }
 
 

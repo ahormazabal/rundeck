@@ -67,7 +67,7 @@
 <div class="modal" id="jobs_filters" tabindex="-1" role="dialog"
      aria-labelledby="jobs_filters_title" aria-hidden="true">
     <div class="modal-dialog modal-lg">
-    <g:form action="jobs" params="[project:params.project]" method="POST" class="form form-horizontal" useToken="true">
+    <g:form  action="jobs" params="[project:params.project]" method="POST" class="form form-horizontal" useToken="true">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -297,10 +297,10 @@
 
               <ul class="list-unstyled">
                   <g:each in="${tagsAndCount}" var="tagInfo">
-                      <li style="display:inline;">
-                          <a  href="#"  class="label label-muted" >
+                      <li style="display:inline;" >
+                        <g:link controller="menu" action="jobs" params="[project: params.project ?: request.project, tagFilter: tagInfo[0]]" class="tag-direct-link label label-muted">
                               <span><g:enc>${tagInfo[0]}</g:enc></span>(<span><g:enc>${tagInfo[1]}</g:enc></span>)
-                          </a>
+                        </g:link>
                       </li>
                   </g:each>
               </ul>

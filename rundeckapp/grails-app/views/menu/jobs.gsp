@@ -53,6 +53,7 @@
 jobquery.title.titleFilter
 jobquery.title.jobFilter
 jobquery.title.jobIdFilter
+jobquery.title.tagFilter
 jobquery.title.userFilter
 jobquery.title.statFilter
 jobquery.title.filter
