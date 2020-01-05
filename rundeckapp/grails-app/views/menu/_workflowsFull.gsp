@@ -131,6 +131,16 @@
                     </label>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="${enc(attr:rkey)}tagFilter"><g:message code="scheduledExecution.property.tags.label"/></label>
+                    <div class="col-sm-10">
+
+                        <input type='text' name="tagFilter" value="${params.tagFilter}"  id="jobTags" class="form-control"/>
+
+                        </input>
+
+                    </div>
+                </div>
                 <g:if test="${clusterModeEnabled}">
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="${enc(attr:rkey)}serverNodeUUIDFilter"><g:message code="jobquery.title.serverNodeUUIDFilter"/></label>
@@ -284,6 +294,16 @@
             </div>
         </div>
     </g:if>
+
+              <ul class="list-unstyled">
+                  <g:each in="${tagsAndCount}" var="tagInfo">
+                      <li style="display:inline;">
+                          <a  href="#"  class="label label-muted" >
+                              <span><g:enc>${tagInfo[0]}</g:enc></span>(<span><g:enc>${tagInfo[1]}</g:enc></span>)
+                          </a>
+                      </li>
+                  </g:each>
+              </ul>
 
                     <span id="group_controls" data-ko-bind="bulkeditor">
                       <span class="btn btn-secondary btn-simple btn-hover btn-xs" data-bind="click: expandAllComponents">

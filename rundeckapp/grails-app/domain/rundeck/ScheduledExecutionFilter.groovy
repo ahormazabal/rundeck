@@ -32,6 +32,7 @@ public class ScheduledExecutionFilter {
     String projFilter
     String groupPath
 
+    String tagFilter
     String descFilter
     String loglevelFilter
 
@@ -46,6 +47,7 @@ public class ScheduledExecutionFilter {
         idlist(nullable: true, matches: ApiBulkJobDeleteRequest.IDLIST_REGEX)
         jobFilter(nullable:true)
         projFilter(nullable:true)
+        tagFilter(nullable:true)
         groupPath(nullable:true)
         descFilter(nullable:true)
         loglevelFilter(nullable:true)
@@ -82,6 +84,7 @@ public class ScheduledExecutionFilter {
                 jobFilter           : jobFilter,
                 projFilter          : projFilter,
                 groupPath           : groupPath,
+                tagFilter           : tagFilter,
                 descFilter          : descFilter,
                 loglevelFilter      : loglevelFilter,
                 idlist              : idlist,

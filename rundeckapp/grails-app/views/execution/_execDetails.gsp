@@ -407,6 +407,20 @@
                 </span>
             </td>
         </tr>
+        <tr>
+            <td><span><g:message code="scheduledExecution.property.tags.label"/></span></td>
+            <td>
+                <ul class="list-unstyled">
+                    <g:each in="${scheduledExecution.tags}" var="aTag">
+                        <li style="display:inline;">
+                            <a href="#"  class="label label-muted" >
+                                <span ><g:enc>${aTag.name}</g:enc></span>
+                            </a>
+                        </li>
+                    </g:each>
+                </ul>
+            </td>
+        </tr>
     </g:if>
 
 </table>

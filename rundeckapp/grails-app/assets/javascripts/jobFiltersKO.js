@@ -22,6 +22,7 @@ function JobFilter (data, filters) {
     self.projFilter = ko.observable(data.projFilter)
     self.groupPath = ko.observable(data.groupPath)
     self.descFilter = ko.observable(data.descFilter)
+    self.tagFilter = ko.observable(data.tagFilter)
     self.loglevelFilter = ko.observable(data.loglevelFilter)
     self.idlist = ko.observable(data.idlist)
     self.scheduledFilter = ko.observable(data.scheduledFilter)

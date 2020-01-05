@@ -73,6 +73,7 @@ import rundeck.LogFileStorageRequest
 import rundeck.Project
 import rundeck.ScheduledExecution
 import rundeck.ScheduledExecutionFilter
+import rundeck.Tag
 import rundeck.User
 import rundeck.codecs.JobsXMLCodec
 import rundeck.codecs.JobsYAMLCodec
@@ -332,6 +333,7 @@ class MenuController extends ControllerBase implements ApplicationContextAware{
         results.nextSchedListIds = results.nextScheduled?.collect {ScheduledExecution job->
             job.extid
         }
+        results.tagsAndCount = Tag.getTagsAndCountByProject(params.project)
         withFormat{
             html {
                 results

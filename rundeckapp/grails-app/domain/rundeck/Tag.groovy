@@ -61,4 +61,25 @@ class Tag {
                 .map { Tag.getTag(it) }
                 .collect(Collectors.toSet())
     }
+
+    static List<Object[]> getTagsAndCountByProject(String projectName) {
+        if(!projectName || projectName.trim().isEmpty())
+            return null
+
+        //having jobs having projects with the name
+
+        def c = Tag.createCriteria()
+        def tagsByProject = c.list {
+            projections{
+                groupProperty("name")
+                count("name")
+            }
+            jobs {
+                eq("project", projectName)
+
+            }
+        }
+
+        return tagsByProject
+    }
 }
