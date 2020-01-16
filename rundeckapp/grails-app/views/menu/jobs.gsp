@@ -32,6 +32,7 @@
     <g:set var="deleteExecAuth" value="${auth.resourceAllowedTest(context: 'application', type: 'project', name: projectName, action: AuthConstants.ACTION_DELETE_EXECUTION) || projAdminAuth}"/>
 
     <asset:javascript src="menu/jobs.js"/>
+    <asset:javascript src="jquery.tageditor.js"/>
     <g:if test="${grails.util.Environment.current==grails.util.Environment.DEVELOPMENT}">
         <asset:javascript src="menu/joboptionsTest.js"/>
         <asset:javascript src="menu/job-remote-optionsTest.js"/>
@@ -266,7 +267,7 @@ search
                 jQuery('#selectProject').modal();
             });
 
-
+            jQuery("[name='tagFilter']").tagEditor();
         }
 
         var bulkeditor;
