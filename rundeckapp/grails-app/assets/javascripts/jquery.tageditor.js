@@ -24,10 +24,10 @@
                 });
                 currentTags = remainingTags;
 
-                updateTags();
+                updateTagsAndHiddenField();
             };
 
-            var updateTags = function () {
+            var updateTagsAndHiddenField = function () {
                 jQuery(targetTagListElement).html("");
 
                 jQuery.each(currentTags, function (idx, aTagName) {
@@ -44,9 +44,7 @@
 
                     newTagElement.appendTo(targetTagListElement);
                 });
-            };
 
-            var updateHiddenField = function(){
                 var newHiddenFieldContent = currentTags.join(",");
                 tagHiddenInput.val(newHiddenFieldContent);
             };
@@ -59,8 +57,7 @@
                     if( jQuery.inArray(aNewTag, currentTags) === -1 ) currentTags.push(aNewTag);
                 });
 
-                updateTags();
-                updateHiddenField();
+                updateTagsAndHiddenField();
             }
 
 
@@ -85,8 +82,7 @@
             elem.before(targetTagListElement);
 
             var currentTags = parseTextIntoTags(initialInputValue);
-            updateTags();
-            updateHiddenField();
+            updateTagsAndHiddenField();
 
             /*wires focus/blur events to class change on addon*/
             jQuery(elem).focus(function () {
@@ -101,15 +97,12 @@
                 if(event.keyCode == 8 && "" == elem.val()){
                     if( currentTags.length > 0 ){
                         currentTags.pop();
-                        updateTags();
-                        updateHiddenField();
+                        updateTagsAndHiddenField();
                     }
                 }
                 if(event.keyCode == 32){
                     processInputTextIntoTags();
                 }
-
-                //TODO: a backspace from position 0 of cursor deletes the last tag
             });
             jQuery(this).blur(function () {
                 processInputTextIntoTags();
