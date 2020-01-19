@@ -49,6 +49,7 @@
     <!--[if (gt IE 8)|!(IE)]><!--> <asset:javascript src="ace-bundle.js"/><!--<![endif]-->
 
       <asset:stylesheet href="static/css/pages/project-dashboard.css"/>
+    <asset:stylesheet href="static/css/custom/tags-editor.scss"/>
       <g:jsMessages code="jobslist.date.format.ko,select.all,select.none,delete.selected.executions,cancel.bulk.delete,cancel,close,all,bulk.delete,running"/>
       <g:jsMessages code="search.ellipsis
 jobquery.title.titleFilter

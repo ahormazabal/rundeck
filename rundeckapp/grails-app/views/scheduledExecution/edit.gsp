@@ -27,6 +27,8 @@
     <asset:javascript src="util/markdeep.js"/>
     <asset:javascript src="util/yellowfade.js"/>
     <asset:javascript src="util/tab-router.js"/>
+    <asset:javascript src="jquery.tageditor.js"/>
+
     <g:jsMessages code="page.unsaved.changes"/>
     <g:javascript>
         var workflowEditor = new WorkflowEditor();
@@ -34,6 +36,8 @@
         _onJobEdit(confirm.setNeedsConfirm);
         jQuery(function () {
             setupTabRouter('#job_edit_tabs', 'tab_');
+
+            jQuery("#jobTags ").tagEditor();
         })
     </g:javascript>
     <g:embedJSON data="${globalVars ?: []}" id="globalVarData"/>
